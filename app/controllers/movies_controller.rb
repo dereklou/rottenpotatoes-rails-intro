@@ -15,12 +15,8 @@ class MoviesController < ApplicationController
     @title_class = ""
     @release_class = ""
     @movies = Movie.all
-    if not(params[:rating].empty?)
-      @selected_ratings = params[:rating].keys
-      @movies = @movies.where(rating: selected_ratings)
-    else
-      @selected_ratings = @all_ratings
-    end
+    @selected_ratings = params[:rating].keys
+    @movies = @movies.where(rating: selected_ratings)
     if params[:title]
       @title_class = "hilite"
       @movies = @movies.order("title")
