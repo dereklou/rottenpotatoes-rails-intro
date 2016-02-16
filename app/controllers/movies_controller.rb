@@ -19,8 +19,8 @@ class MoviesController < ApplicationController
       @selected_ratings = all_ratings
     else
       @selected_ratings = params[:rating].keys
+      @movies = @movies.where(rating: @selected_ratings)
     end
-    @movies = @movies.where(rating: selected_ratings)
     if params[:title]
       @title_class = "hilite"
       @movies = @movies.order("title")
