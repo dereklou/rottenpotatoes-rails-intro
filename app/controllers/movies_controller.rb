@@ -11,16 +11,17 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = ['G','PG','PG-13','R']
     @title_class = ""
     @release_class = ""
+    @movies = Movie.all
+    ratings_hash = params[:rating]
     if params[:title]
       @title_class = "hilite"
-      @movies = Movie.order("title")
+      @movies = @movies.order("title")
     elsif params[:release_date]
       @release_class = "hilite"
-      @movies = Movie.order("release_date")
-    else
-      @movies = Movie.all
+      @movies = @movies.order("release_date")
     end
   end
 
