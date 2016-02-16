@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
 
   def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date)
+    params.require(:movie).permit(:title, :ratings, :description, :release_date)
   end
 
   def show
@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     @title_class = ""
     @release_class = ""
     @movies = Movie.all
-    if params[:rating].nil?
+    if params[:ratings].nil?
       @selected_ratings = @all_ratings
     else
       @selected_ratings = params[:rating].keys
