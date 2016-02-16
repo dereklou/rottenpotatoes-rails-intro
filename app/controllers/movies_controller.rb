@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     @title_class = ""
     @release_class = ""
     @movies = Movie.all
-    if not(params[:rating].nil?)
+    if not(params[:rating].empty?)
       @selected_ratings = params[:rating].keys
       @movies = @movies.where(rating: selected_ratings)
     else
