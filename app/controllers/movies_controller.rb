@@ -16,7 +16,8 @@ class MoviesController < ApplicationController
     @release_class = ""
     @movies = Movie.all
     if not(params[:rating].nil?)
-      @movies = @movies.where(rating: params[:rating].keys)
+      @selected_ratings = params[:rating].keys
+      @movies = @movies.where(rating: selected_ratings)
     end
     if params[:title]
       @title_class = "hilite"
