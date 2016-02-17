@@ -16,17 +16,24 @@ class MoviesController < ApplicationController
     @release_class = ""
     @movies = Movie.all
     if params[:ratings].nil?
-      @selected_ratings = @all_ratings
+      if session[:ratings].nil?
+        session[:ratings] = @all_ratings
+      else
+        @selected_ratings = session[:ratings]
+      end
     else
       @selected_ratings = params[:ratings].keys
+      session[:ratings] = @selected_ratings
       @movies = @movies.where(rating: @selected_ratings)
     end
-    if params[:title]
+    if params[:title] || (!session[:sortby].nil? && session[:sortby] == :title)
       @title_class = "hilite"
       @movies = @movies.order("title")
-    elsif params[:release_date]
+      session[:sortby] = :title
+    elsif params[:release_date] || (!session[:sortby].nil? && session[:sortby] == :release)
       @release_class = "hilite"
       @movies = @movies.order("release_date")
+      session[:sortby] = :release
     end
   end
 
