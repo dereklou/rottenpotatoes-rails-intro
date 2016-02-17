@@ -36,11 +36,9 @@ class MoviesController < ApplicationController
     elsif not session[:sortby].nil? && session[:sortby] == :title
       @title_class = "hilite"
       @movies = @movies.order("title")
-      session[:sortby] = :title
     elsif not session[:sortby].nil? && session[:sortby] == :release
       @release_class = "hilite"
       @movies = @movies.order("release_date")
-      session[:sortby] = :release
     end
   end
 
