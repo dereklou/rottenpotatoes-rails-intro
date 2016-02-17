@@ -28,20 +28,17 @@ class MoviesController < ApplicationController
     if params[:title]
       @title_class = "hilite"
       @movies = @movies.order("title")
-      session[:sortby] = :title
+      session[:sortby] = 'title'
     elsif params[:release_date]
       @release_class = "hilite"
       @movies = @movies.order("release_date")
-      session[:sortby] = :release
-    elsif session[:sortby] == :title
+      session[:sortby] = 'release'
+    elsif session[:sortby] == 'title'
       @title_class = "hilite"
       @movies = @movies.order("title")
-    elsif session[:sortby] == :release
+    elsif session[:sortby] == 'release'
       @release_class = "hilite"
       @movies = @movies.order("release_date")
-    else
-      @title_class = "hilite"
-      @release_class = "hilite"
     end
   end
 
