@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
       session_ratings = true
       selected_ratings = session[:ratings]
     end
-    if params[:title].nil? && params[:release_date].nil? && not(session[:sortby].nil?)
+    if params[:title].nil? && (not(params[:release_date].nil?) || not(session[:sortby].nil?))
       session_sort = true
       sorted_by = session[:sortby]
     end
