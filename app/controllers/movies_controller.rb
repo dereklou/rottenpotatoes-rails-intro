@@ -26,22 +26,20 @@ class MoviesController < ApplicationController
       sorted_by = session[:sortby]
     end
     
-    if to_redirect
-      if session_ratings && session_sort
-        if sorted_by == 'title'
-          redirect_to movies_path(:ratings => selected_ratings, :title => true)
-        elsif sorted_by == 'release'
-          redirect_to movies_path(:ratings => selected_ratings, :release => true)
-        end
-      elsif session_sort
-        if sorted_by == 'title'
-          redirect_to movies_path(:title => true)
-        elsif sorted_by == 'release'
-          redirect_to movies_path(:release => true)
-        end
-      else
-        redirect_to movies_path(:ratings => selected_ratings)
+    if session_ratings && session_sort
+      if sorted_by == 'title'
+        redirect_to movies_path(:ratings => selected_ratings, :title => true)
+      elsif sorted_by == 'release'
+        redirect_to movies_path(:ratings => selected_ratings, :release => true)
       end
+    elsif session_sort
+      if sorted_by == 'title'
+        redirect_to movies_path(:title => true)
+      elsif sorted_by == 'release'
+        redirect_to movies_path(:release => true)
+      end
+    elsif session_ratings
+      redirect_to movies_path(:ratings => selected_ratings)
     else
       if not(params[:ratings].nil?)
         @selected_ratings = params[:ratings]
