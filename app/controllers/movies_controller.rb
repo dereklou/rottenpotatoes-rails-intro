@@ -23,9 +23,8 @@ class MoviesController < ApplicationController
     else
       @selected_ratings = params[:ratings].keys
       session[:ratings] = @selected_ratings
-      @movies = @movies.where(rating: @selected_ratings)
     end
-    
+    @movies = @movies.where(rating: @selected_ratings)
     if params[:title] || (!session[:sortby].nil? && session[:sortby] == :title)
       @title_class = "hilite"
       @movies = @movies.order("title")
