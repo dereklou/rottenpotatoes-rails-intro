@@ -15,6 +15,8 @@ class MoviesController < ApplicationController
     @title_class = ""
     @release_class = ""
     @movies = Movie.all
+    session_sort = false
+    session_ratings = false
     if params[:ratings].nil? && not(session[:ratings].nil?)
       session_ratings = true
       selected_ratings = session[:ratings]
