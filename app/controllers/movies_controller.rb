@@ -41,13 +41,7 @@ class MoviesController < ApplicationController
     elsif session_ratings && not(session_sort)
       redirect_to movies_path(:ratings => selected_ratings)
     else
-      if not(params[:ratings].nil?)
-        @selected_ratings = params[:ratings]
-      else
-        @selected_ratings = @all_ratings
-      end
-      session[:ratings] = @selected_ratings
-      @movies = @movies.where(rating: @selected_ratings.keys)
+
       if params[:title]
         @title_class = "hilite"
         @movies = @movies.order("title")
