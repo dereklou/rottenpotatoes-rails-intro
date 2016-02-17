@@ -15,33 +15,39 @@ class MoviesController < ApplicationController
     @title_class = ""
     @release_class = ""
     @movies = Movie.all
-    session_sort = false
-    session_ratings = false
+    session_has_sort = false
+    session_has_ratings = false
     if params[:ratings].nil? && not(session[:ratings].nil?)
-      session_ratings = true
-      selected_ratings = session[:ratings]
+      session_has_ratings = true
+      session_ratings = session[:ratings]
     end
     if params[:title].nil? && (not(params[:release_date].nil?) || not(session[:sortby].nil?))
-      session_sort = true
+      session_has_sort = true
       sorted_by = session[:sortby]
     end
     
-    if session_ratings && session_sort
+    if session_has_ratings && session_has_sort
       if sorted_by == 'title'
-        redirect_to movies_path(:ratings => selected_ratings, :title => true)
+        redirect_to movies_path(:ratings => session_ratings, :title => true)
       elsif sorted_by == 'release'
-        redirect_to movies_path(:ratings => selected_ratings, :release => true)
+        redirect_to movies_path(:ratings => session_ratings, :release => true)
       end
-    elsif session_sort && not(session_ratings)
+    elsif session_has_sort && not(session_has_ratings)
       if sorted_by == 'title'
         redirect_to movies_path(:title => true)
       elsif sorted_by == 'release'
         redirect_to movies_path(:release => true)
       end
-    elsif session_ratings && not(session_sort)
-      redirect_to movies_path(:ratings => selected_ratings)
+    elsif session_has_ratings && not(session_has_sort)
+      redirect_to movies_path(:ratings => session_ratings)
     else
-
+      if not(params[:ratings].nil?)
+        @selected_ratings = params[:ratings]
+      else
+        @selected_ratings = @all_ratings
+      end
+      session[:ratings] = @selected_ratings
+      @movies = @movies.where(rating: @selected_ratings.keys)
       if params[:title]
         @title_class = "hilite"
         @movies = @movies.order("title")
