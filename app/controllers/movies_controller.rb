@@ -32,13 +32,13 @@ class MoviesController < ApplicationController
       elsif sorted_by == 'release'
         redirect_to movies_path(:ratings => selected_ratings, :release => true)
       end
-    elsif session_sort
+    elsif session_sort && not(session_ratings)
       if sorted_by == 'title'
         redirect_to movies_path(:title => true)
       elsif sorted_by == 'release'
         redirect_to movies_path(:release => true)
       end
-    elsif session_ratings
+    elsif session_ratings && not(session_sort)
       redirect_to movies_path(:ratings => selected_ratings)
     else
       if not(params[:ratings].nil?)
