@@ -39,6 +39,9 @@ class MoviesController < ApplicationController
     elsif session[:sortby] == :release
       @release_class = "hilite"
       @movies = @movies.order("release_date")
+    else
+      @title_class = "hilite"
+      @release_class = "hilite"
     end
   end
 
