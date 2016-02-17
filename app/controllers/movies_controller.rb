@@ -33,10 +33,10 @@ class MoviesController < ApplicationController
       @release_class = "hilite"
       @movies = @movies.order("release_date")
       session[:sortby] = :release
-    elsif not session[:sortby].nil? && session[:sortby] == :title
+    elsif not(session[:sortby].nil?) && session[:sortby] == :title
       @title_class = "hilite"
       @movies = @movies.order("title")
-    elsif not session[:sortby].nil? && session[:sortby] == :release
+    elsif not(session[:sortby].nil?) && session[:sortby] == :release
       @release_class = "hilite"
       @movies = @movies.order("release_date")
     end
